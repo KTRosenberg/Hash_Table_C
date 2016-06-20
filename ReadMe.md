@@ -1,6 +1,6 @@
 Work-in-progress hash-table with separate chaining
 
-to-add/implement: function to resize the hash table and transfer its current entries,
+to-add/implement: function to resize the hash table and transfer its current entries to a larger array,
 function to free, others. -caution, code needs additional testing.
 
 Compile (in gcc) with:

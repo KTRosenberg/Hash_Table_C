@@ -5,7 +5,7 @@ Karl Toby Rosenberg
 #include "hashtable.h"
 
 double load_factor_threshold = DEFAULTLOADFACTOR;
-uint64_t table_size = 10;
+uint64_t table_size = 11;
 uint64_t number_entries = 0;
 
 int main()
@@ -41,11 +41,25 @@ int main()
 
     */
 
-    node_t* x = add_table_entry("Hello", 1, table_size, hash_table);
-    free(x);
+    add_table_entry("Hello", 1, table_size, &hash_table);
+    printf("\nnow in main: %s\n", "Added <Hello:1>?");
+
     print_table(table_size, hash_table);
-    printf("%s\n", "I just called print_table after freeing the Hello entry, but the hello entry apparently still exists. Something is clearly not being linked correctly.");
-    free(hash_table);
+    printf("\nnow in main: %s\n", "printed table in main?");
+
+    add_table_entry("world", 2, table_size, &hash_table);
+    printf("\nnow in main: %s\n", "Added <world:2>?");
+
+    add_table_entry("Hello", 2, table_size, &hash_table);
+    printf("\nnow in main: %s\n", "printed table in main?");
+
+    print_table(table_size, hash_table);
+    printf("\nnow in main: %s\n", "printed table in main?");
+
+    remove_table_entry("world", table_size, &hash_table);
+    printf("\nnow in main: %s\n", "removed world?");
+    print_table(table_size, hash_table);
+    printf("\nnow in main: %s\n", "printed table in main?");
 
 
     return 0;
@@ -77,17 +91,17 @@ uint64_t hash(char* key)
 }
 
 //FINISH LATER, returns original table by default
-node_t** resize_table(uint64_t table_size, node_t** table)
+int resize_table(uint64_t table_size, node_t*** table_ptr)
 {
     //~TO-DO
     node_t** larger_table = initialize_table((table_size << 1));
     //return larger_table;
-    return table;
+    return 0;
 }
 
-node_t* add_table_entry(char* key, uint64_t value, uint64_t table_size, node_t** table)
+node_t* add_table_entry(char* key, uint64_t value, uint64_t table_size, node_t*** table_ptr)
 {
-    if(key == NULL || table_size <= 0 || table == NULL)return NULL;
+    if(key == NULL || table_size <= 0 || table_ptr == NULL || *table_ptr == NULL)return NULL;
 
     //calculate index using hash function
     uint64_t hash_index = hash(key)%table_size;
@@ -95,38 +109,38 @@ node_t* add_table_entry(char* key, uint64_t value, uint64_t table_size, node_t**
     //check whether key already exists in linked-list chain (check key-value pairs)
     //if exists, update value (for example, increment a word frequency counter)
     //if does not exist
-    node_t* chain_head = table[hash_index];
-    node_t* current = chain_head;
+    node_t** chain_ptr = &((*table_ptr)[hash_index]);
+    node_t* current = *chain_ptr;
     
-    while(current && strcmp(key, ((current)->key)) != 0)
+    while( current && strcmp(key, ((current)->key)) != 0 )
     {
         current = current->next;
     }
 
+    //entry does not exist
     if(current == NULL)
     {
         //check whether load factor threshold will be exceeded with the addition of the new item,
         //if so, resize table and rehash entries, rehash the new entry, then place it
         //otherwise just place the new entry at the front of the linked-list chain
 
-        if( ((double)(number_entries + 1)/table_size) > load_factor_threshold )
+        if( (double)((number_entries + 1)/table_size) > load_factor_threshold )
         {
             //~TO-DO, resize the table
-            if(!(table = resize_table(table_size, table)))return NULL;
+            if((resize_table(table_size, table_ptr) != 0))return NULL;
         }
 
         node_t* new_entry = NULL;
-        if((new_entry = add_front(key, value, &(chain_head))))
+        if((new_entry = add_front(key, value, chain_ptr)))
         {
             number_entries++;
-            printf("\n\nkey: %s, new_entry was returned: \n", new_entry->key);
-            printf("chain_head->key %s\n", chain_head->key);
-            printf("%s\n", "calling print_chain:");
-            print_chain(chain_head);
-            //table[hash_index] = chain_head;
-            printf("%s\n", "calling print_table:");
-            print_table(table_size, table);
-            printf("\n%s\n", "Unless I overwrite with table[hash_index] = chain_head, the linked-list chain does not appear to be added to the table correctly.\nI did pass &(chain_head) where chain_head is the node_t* in hash_table[hash_index],\nhash_index is 2 for \"Hello\"\n");
+            printf("\n%s", "In add_table_entry");
+            printf("\n\n(*chain_ptr)->key %s\n", (*chain_ptr)->key);
+            printf("%s\n", "calling print_chain in add_table_entry():");
+            print_chain(*chain_ptr);
+            printf("\n%s\n", "calling print_table in add_table_entry():");
+            print_table(table_size, *table_ptr);
+            printf("\n");
             return new_entry;
         }
         else
@@ -134,11 +148,40 @@ node_t* add_table_entry(char* key, uint64_t value, uint64_t table_size, node_t**
             return NULL;
         }
     }
+    //entry exists, update value
     else
     {
         current->value += value;
         return current;
     }
+}
+
+node_t* remove_table_entry(char* key, uint64_t table_size, node_t*** table_ptr)
+{
+    if(key == NULL || table_size <= 0 || table_ptr == NULL || *table_ptr == NULL)return NULL;
+
+    //calculate index using hash function
+    uint64_t hash_index = hash(key)%table_size;
+
+    //check whether key already exists in linked-list chain (check key-value pairs)
+    //if exists, update value (for example, increment a word frequency counter)
+    //if does not exist
+    
+    node_t** current = &((*table_ptr)[hash_index]);
+    
+    while(*current && strcmp(key, ((*current)->key)) != 0)
+    {
+        current = &(*current)->next;
+    }
+
+    //entry does not exist
+    if(!(*current))return NULL;
+    
+    node_t* to_remove = *current;
+    *current = (to_remove)->next;
+    to_remove->next = NULL;
+    number_entries--;
+    return to_remove;
 }
 
 int print_table(uint64_t table_size, node_t** table)

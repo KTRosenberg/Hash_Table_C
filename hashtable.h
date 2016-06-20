@@ -16,9 +16,9 @@ Karl Toby Rosenberg
 
 node_t** initialize_table(uint64_t table_size);
 uint64_t hash(char* key);
-node_t** resize_table(uint64_t table_size, node_t** table); 
-node_t* add_table_entry(char* key, uint64_t value, uint64_t table_size, node_t** table);
-node_t* remove_entry(char* key, uint64_t table_size, node_t** table);
+int resize_table(uint64_t table_size, node_t*** table_ptr); 
+node_t* add_table_entry(char* key, uint64_t value, uint64_t table_size, node_t*** table_ptr);
+node_t* remove_table_entry(char* key, uint64_t table_size, node_t*** table_ptr);
 int clear_table(uint64_t table_size, node_t** table);
 int print_table(uint64_t table_size, node_t** table);
 

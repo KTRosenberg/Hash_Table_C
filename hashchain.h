@@ -22,6 +22,9 @@ typedef struct node
 
 node_t* add_front(char* key, uint64_t value, node_t** head);
 node_t* remove_front(node_t** head);
+
+//add a remove_by_ptr function
+
 void free_LL(node_t** head);
 void print_chain(node_t* head);
 

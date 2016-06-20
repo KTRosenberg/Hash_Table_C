@@ -4,7 +4,7 @@ to-add/implement: function to resize the hash table and transfer its current ent
 function to free, others.
 caution: code needs additional testing.
 
-Compile (in this case in gcc) with:
+Compile (in this case using gcc) with:
 
     gcc -g -Wall -Wextra hashtable.c -c -o table.o
 

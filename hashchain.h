@@ -25,7 +25,7 @@ node_t* remove_front(node_t** head);
 
 //add a remove_by_ptr function
 
-void free_LL(node_t** head);
+void free_chain(node_t** head);
 void print_chain(node_t* head);
 
 #endif

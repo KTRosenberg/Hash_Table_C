@@ -19,7 +19,7 @@ node_t* add_front(char* key, uint64_t value, node_t** head)
 
     print_chain(*head);
 
-    printf("%s\n", "Inside add_front function for the linked-list chains, item added successfully");
+    //printf("%s\n", "Inside add_front function for the linked-list chains, item added successfully");
     
     return new_node;
 }
@@ -35,7 +35,7 @@ node_t* remove_front(node_t** head)
     return to_remove;
 }
 
-void free_LL(node_t** head)
+void free_chain(node_t** head)
 {
     node_t* to_free;
     while(head && (*head))

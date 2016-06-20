@@ -1,9 +1,10 @@
 Work-in-progress hash-table with separate chaining
 
 to-add/implement: function to resize the hash table and transfer its current entries to a larger array,
-function to free, others. -caution, code needs additional testing.
+function to free, others.
+caution: code needs additional testing.
 
-Compile (in gcc) with:
+Compile (in this case in gcc) with:
 
     gcc -g -Wall -Wextra hashtable.c -c -o table.o
 

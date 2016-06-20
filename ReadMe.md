@@ -1,4 +1,4 @@
-Work-in-progress Hash-table with separate chaining,
+Work-in-progress hash-table with separate chaining,
 to-add/implement: function to resize the hash table and transfer its current entries,
 function to free, others. -caution, code needs additional testing.
 

@@ -16,6 +16,10 @@ node_t* add_front(char* key, uint64_t value, node_t** head)
     new_node->value = value;
     new_node->next = (*head);
     (*head) = new_node;
+
+    print_chain(*head);
+
+    printf("%s\n", "Inside add_front function for the linked-list chains, item added successfully");
     
     return new_node;
 }

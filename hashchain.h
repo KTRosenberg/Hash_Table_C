@@ -5,7 +5,6 @@ Karl Toby Rosenberg
 #ifndef HASHCHAIN_H
 #define HASHCHAIN_H
 
-
 #ifndef HASHTABLE_H
 
 #include <stdio.h>
@@ -16,9 +15,9 @@ Karl Toby Rosenberg
 
 typedef struct node
 {
-    char* key;
     uint64_t value;
     struct node* next;
+    char* key;
 }node_t;
 
 node_t* add_front(char* key, uint64_t value, node_t** head);

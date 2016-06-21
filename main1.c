@@ -71,6 +71,10 @@ int main()
         old_size = hash_table->table_size;
         printf("%s\n", "resized table");
     }
+
+    uint64_t yay = get_value("Yay", hash_table);
+    printf("\n\nretrieved value for Yay: %" PRIu64 "\n", yay);
+
     
     printf("\n\n%s\n", "print before final free");
     print_table(hash_table);

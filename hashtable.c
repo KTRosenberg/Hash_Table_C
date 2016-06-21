@@ -35,9 +35,10 @@ hash_table_t* init_hash_table(size_t table_size, double load_threshold)
 }
 
 /*
-    hash
+    hash 
         generates an index based on the given key,
         calculate a valid index with return_index%table_size
+        variation of the Jenkins one-at-a-time hash function
     param:
         char* key (the key to hash)
     return:
@@ -46,7 +47,6 @@ hash_table_t* init_hash_table(size_t table_size, double load_threshold)
 */
 uint64_t hash(char* key)
 {
-    //variation of Jenkins one-at-a-time hash function
     uint32_t hash_val = 0;  
     char ch = 1;
     while((ch = *key++))
@@ -63,12 +63,28 @@ uint64_t hash(char* key)
     return (uint64_t)hash_val;
 }
 
+/*
+    resize_table
+        creates a new lists array that is 
+        twice the size of the one in the given hash table,
+        rehashes the records from the original lists array and transfers
+        them to the new larger lists array,and transfers the records from the original hash table to the new one,
+        the new lists array replaces the old one in the given hash table,
+        the old array is freed
+    param:
+        hash_table_t* hash_table (the hash table to replace)
+    return:
+        upon success, 0
+        otherwise -1
+*/
 int resize_table(hash_table_t* hash_table) 
 {
     if(!hash_table || !(hash_table->lists))return -1;
 
+    //calculate new lists array size
     size_t new_size = (hash_table->table_size << 1);
     
+    //allocate memory for the new lists array
     record_t** larger_table = (record_t**)malloc(sizeof(record_t*)*new_size);
 
     if(!larger_table)return -1;
@@ -79,8 +95,12 @@ int resize_table(hash_table_t* hash_table)
     record_t* to_transfer = NULL;
     uint64_t table_index = 0;
      
+    //iterate through each list in the original lists array
     for(; i < size; ++i)
     {
+        //for each record in the current list,
+        //remove the record from the old list,
+        //rehash the record's key and add the record to the larger list
         current_list = (hash_table->lists)[i];
         while(current_list)
         {
@@ -90,8 +110,10 @@ int resize_table(hash_table_t* hash_table)
             larger_table[table_index] = to_transfer;
         }
     }
-
+    //free the old list
     free(hash_table->lists);
+    //set the lists array in the given hash table
+    //as the new larger list containing the records 
     hash_table->lists = larger_table;
     hash_table->table_size = new_size;
 

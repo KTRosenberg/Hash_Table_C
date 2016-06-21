@@ -11,6 +11,6 @@ Compile as individual object files and create executable
 
     gcc -g -Wall -Wextra hashchain.c -c -o chain.o
 
-    gcc -g -Wall -Wextra main_1.c -c -o main1.o
+    gcc -g -Wall -Wextra main1.c -c -o main1.o
 
     gcc -g -Wall -Wextra table.o chain.o main1.o -o programname

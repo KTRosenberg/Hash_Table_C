@@ -189,7 +189,7 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table)
     else
     {
         (*link_ptr)->value += value;
-        return (*link_ptr);
+        return *link_ptr;
     }
 }
 
@@ -269,8 +269,8 @@ record_t* remove_record(char* key, hash_table_t* hash_table)
          ^---^
         link_ptr
     */
-    record_t* to_remove = *(link_ptr);
-    (*link_ptr) = to_remove->next_link;
+    record_t* to_remove = *link_ptr;
+    *link_ptr = to_remove->next_link;
     
     //un-link the record-to-remove
     to_remove->next_link = NULL;

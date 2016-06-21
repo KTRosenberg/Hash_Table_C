@@ -14,8 +14,8 @@ record_t* add_front(char* key, uint64_t value, record_t** head)
 
     new_record->key = key;
     new_record->value = value;
-    new_record->next_link= (*head);
-    (*head) = new_record;
+    new_record->next_link= *head;
+    *head = new_record;
     
     return new_record;
 }

@@ -2,7 +2,9 @@ hash-table implementation with separate chaining and automatic table resizing
 
 allows the user to specify his or her own when initializing a hash table
 
-to-do: text file input, possibly user input
+to-do: 
+text file input and possibly user input,
+improve resizing (providing an array of prime numbers is an option)
 
 Compile as individual object files and create executable
 (in this case using gcc) with:

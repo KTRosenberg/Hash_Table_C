@@ -1,5 +1,9 @@
 /*
 Karl Toby Rosenberg
+
+hashchain:
+    header for an implementation of the linked list for use with
+    a hash table with separate chaining
 */
 
 #ifndef HASHCHAIN_H

@@ -1,5 +1,9 @@
 /*
 Karl Toby Rosenberg
+
+hashchain:
+    an implementation of the linked list for use with
+    a hash table with separate chaining        
 */
 
 #include "hashchain.h"

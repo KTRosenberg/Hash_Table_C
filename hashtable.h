@@ -1,5 +1,9 @@
 /*
 Karl Toby Rosenberg
+
+hashtable:
+    header for an implementation of a hash table with separate chaining
+    and automatic resizing, allows the user to specify a custom hash function
 */
 
 #ifndef HASHTABLE_H

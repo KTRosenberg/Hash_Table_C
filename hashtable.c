@@ -1,5 +1,9 @@
 /*
 Karl Toby Rosenberg
+
+hashtable:
+    an implementation of a hash table with separate chaining
+    and automatic resizing, allows the user to specify a custom hash function
 */
 
 #include "hashtable.h"

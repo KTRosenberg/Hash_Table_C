@@ -82,7 +82,7 @@ int main()
     
     del_hash_table(hash_table);
     print_table(hash_table);
-    printf("\n\n%s\n", "nothing should have printed, the hash table is gone.");
+    printf("\n\n%s\n", "Nothing should have printed, as the hash table has been deleted.");
     
     return 0;
 }

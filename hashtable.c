@@ -97,15 +97,15 @@ uint64_t hash_default(char* key)
 */
 uint64_t hash_default_2(char* key)
 {
-    uint64_t hash = 5381;
+    uint64_t hash_val = 5381;
     
     int c;
     while((c = *key++))
     {
-        hash = ((hash << 5) + hash) + c;
+        hash_val = ((hash_val << 5) + hash_val) + c;
     } 
     
-    return hash;
+    return hash_val;
 }
 
 /*
@@ -185,8 +185,11 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table)
 {
     if(!key || !hash_table)return NULL;
 
-    //calculate index using hash function
-    uint64_t table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
+    //calculate the hash value using the hash function
+    //set for the current hash table, (save value in case of resize)
+    uint64_t hash_val = (*(hash_table->hash_function))(key);
+    //find the appropriate index in the hash table's lists array
+    uint64_t table_index = hash_val%(hash_table->table_size);
     
     //set a double record pointer to the start of the correct list in
     //the hash table's lists array to begin traversing the list
@@ -213,8 +216,8 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table)
             if((resize_table(hash_table) != 0))return NULL;
 
             //now that the table should have been resized,
-            //find the correct index for the new record
-            table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
+            //find the correct index for the new record based on the new size
+            table_index = hash_val%(hash_table->table_size);
         }
 
         //add the new record to the hash table by

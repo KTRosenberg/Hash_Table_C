@@ -29,11 +29,11 @@ hash_table->max_load
 
 typedef struct hash_table
 {
-    record_t** lists;
     size_t     table_size;
     size_t     num_records;
     double     max_load;
     uint64_t   (*hash_function)(char*);
+    record_t** lists;
 }hash_table_t;
 
 hash_table_t* init_hash_table(size_t table_size, double load_threshold, uint64_t (*hash_function)(char*));

@@ -126,8 +126,10 @@ int resize_table(hash_table_t* hash_table)
 {
     if(!hash_table || !(hash_table->lists))return -1;
 
-    //calculate new lists array size
-    size_t new_size = (hash_table->table_size << 1);
+    //calculate new size for lists array 
+    //(to-do, implement way to choose better array sizes,
+    //possibly by providing a pre-built array of prime numbers)
+    size_t new_size = (hash_table->table_size << 1)+1;
     
     //allocate memory for the new lists array
     record_t** larger_table = (record_t**)malloc(sizeof(record_t*)*new_size);

@@ -1,6 +1,6 @@
 hash-table implementation with separate chaining and automatic table resizing
 
-allows the user to specify his or her own when initializing a hash table
+allows the user to specify his or her own hash function when initializing a hash table
 
 to-do: 
 text file input and possibly user input,

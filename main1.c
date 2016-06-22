@@ -1,12 +1,14 @@
 /*
 Karl Toby Rosenberg
+
+main test program 1
+
+creates a hash table, tests functions, and displays
+the hash table after operations are completed
 */
 
 #include "hashtable.h"
 
-/*
-    main test program 1
-*/
 int main()
 {
     hash_table_t* hash_table = init_hash_table(DEFAULTSIZE, 0.2, DEFAULTHASH);

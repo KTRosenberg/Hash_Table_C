@@ -18,34 +18,48 @@ Karl Toby Rosenberg
         upon success returns a hash_table_t pointer to the new hash table
         upon error returns NULL
 */
-hash_table_t* init_hash_table(size_t table_size, double load_threshold)
+hash_table_t* init_hash_table(size_t table_size, double load_threshold, uint64_t (*hash_function)(char*))
 {
+    //allocate memory for the hash table
     hash_table_t* hash_table_new = (hash_table_t*)malloc(sizeof(hash_table_t));
     
     if(!hash_table_new)return NULL;
 
+    //allocate memory for the array of record lists
     hash_table_new->lists = (record_t**)calloc(table_size, sizeof(record_t*));
 
     if(!(hash_table_new->lists))return NULL;
 
+    //set the initial table size
     hash_table_new->table_size = table_size;
-    hash_table_new->max_load = (load_threshold > 0) ? load_threshold : DEFAULTMAXLOAD;
+    //set the load threshold
+    hash_table_new->max_load = (load_threshold <= 0) ? DEFAULTMAXLOAD : load_threshold;
+    //set the hash function
+    hash_table_new->hash_function = (!hash_function) ? DEFAULTHASH : hash_function;
 
+    //return the new hash table    
     return hash_table_new; 
 }
 
 /*
-    hash 
+    hash_default
         generates an index based on the given key,
-        calculate a valid index with return_index%table_size
-        variation of the Jenkins one-at-a-time hash function
+        to calculate a valid index use hash_val%table_size
+        
+        this is a version of the Jenkins one-at-a-time hash function
+        
+        note:
+            pass a function pointer as an argument to init_hash_table()
+            to use a customized hash function. (char* keys for now)
+            a function pointer to hash_default is included as the macro
+            DEFAULTHASH in hashtable.h
     param:
         char* key (the key to hash)
     return:
         uint64_t a positive integer value,
         use to calculate a valid index in an array
 */
-uint64_t hash(char* key)
+uint64_t hash_default(char* key)
 {
     uint32_t hash_val = 0;  
     char ch = 1;
@@ -61,6 +75,37 @@ uint64_t hash(char* key)
     hash_val += (hash_val<<15);
 
     return (uint64_t)hash_val;
+}
+
+/*
+    hash_default_2
+        generates an index based on the given key,
+        to calculate a valid index use hash_val%table_size
+
+        this is a version of the djb2 hash function
+        
+        note:
+            pass a function pointer as an argument to init_hash_table()
+            to use a customized hash function. (char* keys for now)
+            a function pointer to hash_default is included as the macro
+            DEFAULTHASH2 in hashtable.h
+    param:
+        char* key (the key to hash)
+    return:
+        uint64_t a positive integer value,
+        use to calculate a valid index in an array
+*/
+uint64_t hash_default_2(char* key)
+{
+    uint64_t hash = 5381;
+    
+    int c;
+    while((c = *key++))
+    {
+        hash = ((hash << 5) + hash) + c;
+    } 
+    
+    return hash;
 }
 
 /*
@@ -105,7 +150,7 @@ int resize_table(hash_table_t* hash_table)
         while(current_list)
         {
             if(!(to_transfer = remove_front(&current_list) ))return -1;
-            table_index = hash(to_transfer->key)%new_size;
+            table_index = (*(hash_table->hash_function))(to_transfer->key)%new_size;
             to_transfer->next_link = larger_table[table_index];
             larger_table[table_index] = to_transfer;
         }
@@ -141,7 +186,7 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table)
     if(!key || !hash_table)return NULL;
 
     //calculate index using hash function
-    uint64_t table_index = hash(key)%(hash_table->table_size);
+    uint64_t table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
     
     //set a double record pointer to the start of the correct list in
     //the hash table's lists array to begin traversing the list
@@ -169,7 +214,7 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table)
 
             //now that the table should have been resized,
             //find the correct index for the new record
-            table_index = hash(key)%(hash_table->table_size);
+            table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
         }
 
         //add the new record to the hash table by
@@ -209,7 +254,7 @@ int64_t get_value(char* key, hash_table_t* hash_table)
     if(!key || !hash_table)return -1;
 
     //calculate the lists array index using the hash function
-    uint64_t table_index = hash(key)%(hash_table->table_size);
+    uint64_t table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
 
     //point the record pointer to the list at the correct table index
     record_t* link = hash_table->lists[table_index];
@@ -246,7 +291,7 @@ record_t* remove_record(char* key, hash_table_t* hash_table)
     if(!key || !hash_table)return NULL;
 
     //calculate index using hash function
-    uint64_t table_index = hash(key)%(hash_table->table_size);
+    uint64_t table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
 
     //set a double pointer to the list at the hash index    
     record_t** link_ptr = &(hash_table->lists[table_index]);

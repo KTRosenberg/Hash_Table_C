@@ -1,8 +1,8 @@
 hash-table implementation with separate chaining and automatic table resizing
 
-to-do: text file input, possibly user input
+allows the user to specify his or her own when initializing a hash table
 
-caution: code needs additional testing.
+to-do: text file input, possibly user input
 
 Compile as individual object files and create executable
 (in this case using gcc) with:

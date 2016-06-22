@@ -9,7 +9,7 @@ Karl Toby Rosenberg
 */
 int main()
 {
-    hash_table_t* hash_table = init_hash_table(DEFAULTSIZE, 0.2);
+    hash_table_t* hash_table = init_hash_table(DEFAULTSIZE, 0.2, DEFAULTHASH);
     if(!hash_table)exit(-1);
 
     //TO-DO: user or text input/output

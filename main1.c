@@ -4,7 +4,7 @@ Karl Toby Rosenberg
 main test program 1
 
 creates a hash table, tests functions, and displays
-the hash table after operations are completed
+the hash table after each operation on the hash table has completed
 */
 
 #include "hashtable.h"

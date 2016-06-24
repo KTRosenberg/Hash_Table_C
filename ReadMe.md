@@ -9,7 +9,7 @@ text file input and possibly user input,
 improve resizing (providing an array of prime numbers is an option)
 
 Compile as individual object files and create executable
-(in this case using gcc ) with (for example):
+(in this case using gcc) with (for example):
 
     gcc -g -Wall -Wextra hashtable.c -c -o table.o
 

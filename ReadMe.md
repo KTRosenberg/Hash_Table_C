@@ -1,3 +1,5 @@
+NOTE: I discovered that the implementation is UNSTABLE after one initialization. I need to debug it.
+
 hash-table implementation with separate chaining and automatic table resizing
 
 allows the user to specify his or her own hash function when initializing a hash table

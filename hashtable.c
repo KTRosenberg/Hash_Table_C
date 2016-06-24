@@ -36,6 +36,8 @@ hash_table_t* init_hash_table(size_t table_size, double load_threshold, uint64_t
 
     //set the initial table size
     hash_table_new->table_size = table_size;
+    //set the initial number of records to 0
+    hash_table_new->num_records = 0;
     //set the load threshold
     hash_table_new->max_load = (load_threshold <= 0) ? DEFAULTMAXLOAD : load_threshold;
     //set the hash function

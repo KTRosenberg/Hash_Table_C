@@ -23,7 +23,7 @@ hashtable:
 #define NEEDTORESIZE \
 (((hash_table->table_size << 1) + 1 > (hash_table->table_size)) && \
 (double)(hash_table->num_records + 1)/(double)((hash_table->table_size)) > \
-hash_table->max_load
+hash_table->max_load)
 
 
 #ifndef HASHCHAIN_H

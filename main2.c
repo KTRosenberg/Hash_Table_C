@@ -13,7 +13,7 @@ displays the table
 
 /*
     main
-        note: pass a single command line argument of 'p' to display the hash table
+        note: pass a single command line argument of 'x' to avoid displaying the hash table
 */
 int main(int argc, char *argv[])
 {
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     
     //passing a single command line argument of 'x'
     //avoids displaying the table
-    if(argc == 2 && argv[1][0] != 'x')
+    if(argc != 2 || argv[1][0] != 'x')
     {
         print_table(hash_table);
     }

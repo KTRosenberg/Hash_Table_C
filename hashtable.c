@@ -24,6 +24,8 @@ hashtable:
 */
 hash_table_t* init_hash_table(size_t table_size, double load_threshold, uint64_t (*hash_function)(char*))
 {
+    if(table_size < 1) return NULL;
+    
     //allocate memory for the hash table
     hash_table_t* hash_table_new = (hash_table_t*)malloc(sizeof(hash_table_t));
     

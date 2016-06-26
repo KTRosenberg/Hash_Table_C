@@ -299,7 +299,7 @@ int64_t get_value(char* key, hash_table_t* hash_table)
 */
 record_t* remove_record(char* key, hash_table_t* hash_table)
 {
-    if(!key || !hash_table)return NULL;
+    if(!key || !hash_table || !(hash_table->lists) )return NULL;
 
     //calculate index using hash function
     uint64_t table_index = (*(hash_table->hash_function))(key)%(hash_table->table_size);
@@ -394,7 +394,7 @@ void clear_table(hash_table_t* hash_table)
     del_hash_table
         frees the memory allocated for the given hash table
     param:  
-        hash_table_t* hash_table (the hash table to free)
+        hash_table_t** hash_table (a pointer to the hash table to free)
     return:
         void
 */

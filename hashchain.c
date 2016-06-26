@@ -30,7 +30,12 @@ record_t* add_front(char* key, uint64_t value, record_t** head)
     if(!new_record)return NULL;
 
     //set the key and value for the new record
-    new_record->key = key;
+
+    //allocate memory for the key
+    char* key_copy = strdup(key);
+    if(!key_copy)return NULL;
+    
+    new_record->key = key_copy;
     new_record->value = value;
     //set the new record as the new front of the linked-list chain
     new_record->next_link= *head;
@@ -47,6 +52,7 @@ record_t* add_front(char* key, uint64_t value, record_t** head)
         record_t** (a pointer to the head pointer to a linked-list chain)
     return:
         upon success, a pointer to the record just removed from the linked-list
+        (remember to free the pointer to the key and the pointer to the record)
         otherwise NULL
 */
 record_t* remove_front(record_t** head)
@@ -103,6 +109,7 @@ void del_list(record_t** head)
     {
         to_free = *head;
         *head = (*head)->next_link;
+        free(to_free->key);
         free(to_free);
     }
 }

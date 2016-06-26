@@ -1,9 +1,12 @@
 CC     = gcc
 CFLAGS = -O3 -g -Wall -Wextra
 OBJS = hashtable.o hashchain.o main1.o
-
+OBJS2 = hashtable.o hashchain.o main2.o
 test1 : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o test1
+
+test2 : $(OBJS2)
+	$(CC) $(CFLAGS) $(OBJS2) -o test2
 
 hashtable.o : hashtable.c hashtable.h
 	$(CC) $(CFLAGS) -c hashtable.c
@@ -13,6 +16,9 @@ hashchain.o : hashchain.c hashchain.h
 
 main1.o : main1.c hashtable.h
 	$(CC) -c main1.c
+
+main2.o : main2.c hashtable.h
+	$(CC) -c main2.c
 
 clean :
 	-rm -f *.o *.core

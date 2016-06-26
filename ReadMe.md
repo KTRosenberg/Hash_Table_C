@@ -1,10 +1,9 @@
 hash-table implementation with separate chaining and automatic table resizing
+-allows the user to specify his or her own hash function (strings for now) when initializing a hash table
 
-allows the user to specify his or her own hash function when initializing a hash table
-
-to-do: 
-possibly user input,
+to-do:
 improve resizing (providing an array of prime numbers is an option)
+ possibly add user input,
 
 Compile as individual object files and create executable
 (in this case using gcc) with (for example):
@@ -19,11 +18,11 @@ Compile as individual object files and create executable
 
 A makefile for main1 and main2 is also available.
 
-run <make> or <make test1> to compile test1,
+Run *make* or *make test1* to compile test1,
 which creates a small hash table and tests
 put, get, and remove functions
 
-run <make test2> to compile test2,
+Run *make test2* to compile test2,
 which reads the text file words.txt (a large list of words),
-puts them in the hash table, and displays the table
-(pass a command line argument of 'x' to avoid displaying the table)
+puts them in the hash table, and displays the table.
+(Pass a command line argument of 'x' to avoid displaying the table.)

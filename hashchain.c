@@ -104,6 +104,5 @@ void del_list(record_t** head)
         to_free = *head;
         *head = (*head)->next_link;
         free(to_free);
-        to_free = NULL;
     }
 }

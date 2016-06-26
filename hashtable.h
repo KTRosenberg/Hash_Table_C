@@ -49,6 +49,6 @@ int64_t get_value(char* key, hash_table_t* hash_table);
 record_t* remove_record(char* key, hash_table_t* hash_table);
 int print_table(hash_table_t* hash_table);
 void clear_table(hash_table_t* hash_table);
-void del_hash_table(hash_table_t* hash_table);
+void del_hash_table(hash_table_t** hash_table);
 
 #endif

@@ -138,7 +138,7 @@ int resize_table(hash_table_t* hash_table)
     size_t new_size = (hash_table->table_size << 1) + 1;
     
     //allocate memory for the new lists array
-    record_t** larger_table = (record_t**)malloc(sizeof(record_t*)*new_size);
+    record_t** larger_table = (record_t**)calloc(new_size, sizeof(record_t*));
 
     if(!larger_table)return -1;
 
@@ -398,11 +398,11 @@ void clear_table(hash_table_t* hash_table)
     return:
         void
 */
-void del_hash_table(hash_table_t* hash_table)
+void del_hash_table(hash_table_t** hash_table)
 {
     //free the memory allocated for the lists array in the given hash table
-    clear_table(hash_table);
+    clear_table(*hash_table);
     //free the hash table struct
-    free(hash_table);
-    hash_table = NULL;
+    free(*hash_table);
+    *hash_table = NULL;
 }

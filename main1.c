@@ -49,7 +49,13 @@ int main()
         printf("%s\n", "resized table");
     }
 
-    remove_record("world", hash_table);
+    record_t* to_remove = remove_record("world", hash_table);
+    if(to_remove)
+    {
+        free(to_remove);
+        to_remove = NULL;
+    }
+
     printf("\n\n%s\n", "removed <world:2>");
     print_table(hash_table);
     printf("\nsize: %lu, number of records: %lu\n", hash_table->table_size, hash_table->num_records);
@@ -83,7 +89,7 @@ int main()
     print_table(hash_table);
     printf("\nFinal size: %lu, Final number of records: %lu\n", hash_table->table_size, hash_table->num_records);
     
-    del_hash_table(hash_table);
+    del_hash_table(&hash_table);
     print_table(hash_table);
     printf("\n\n%s\n", "Nothing should have printed, as the hash table has been deleted.");
     

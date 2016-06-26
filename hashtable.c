@@ -294,7 +294,8 @@ int64_t get_value(char* key, hash_table_t* hash_table)
     return: 
         if the key-value record exists,
             removes the record from the hash table,
-            returns a pointer to the removed record 
+            returns a pointer to the removed record
+            (remember to free when no longer in use)
         upon error returns NULL
 */
 record_t* remove_record(char* key, hash_table_t* hash_table)

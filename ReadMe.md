@@ -20,7 +20,7 @@ A makefile for main1 and main2 is also available.
 
 Run *make* or *make test1* to compile test1,
 which creates a small hash table and tests
-the put_record, get_value, and remove_record functions
+the put_record(), get_value(), and remove_record() functions
 
 Run *make test2* to compile test2,
 which reads the text file words.txt (a large list of words),

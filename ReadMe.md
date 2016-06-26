@@ -17,4 +17,4 @@ Compile as individual object files and create executable
 
     gcc -g -Wall -Wextra table.o chain.o main1.o -o programname
 
-A makefile for main1 is also available
+A makefile for main1 is also available.

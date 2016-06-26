@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         {
             buffer[strlen(buffer)-1] = '\0';
         }
-        //also check for the \r new line character as part of \r\n Windows new line sequences
+        //also check for the \r new line character as part of \r\n DOS/Windows new line sequences
         if(buffer[0] && buffer[strlen(buffer)-1] == '\r')
         {
             buffer[strlen(buffer)-1] = '\0';

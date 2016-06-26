@@ -13,7 +13,7 @@ displays the table
 
 /*
     main
-        Note: pass a single command line argument of 'p' to display the hash table
+        note: pass a single command line argument of 'p' to display the hash table
 */
 int main(int argc, char *argv[])
 {

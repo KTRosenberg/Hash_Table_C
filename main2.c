@@ -58,9 +58,9 @@ int main(int argc, char *argv[])
         exit(-2);
     }
     
-    //passing a single command line argument of 'p'
-    //has the program display the table
-    if(argc == 2 && argv[1][0] == 'p')
+    //passing a single command line argument of 'x'
+    //avoids displaying the table
+    if(argc == 2 && argv[1][0] != 'x')
     {
         print_table(hash_table);
     }

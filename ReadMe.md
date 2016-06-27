@@ -1,3 +1,6 @@
+NOTE:
+Current version unstable, memory issues to-be-resolved soon
+
 hash-table implementation with separate chaining and automatic table resizing
 -allows the user to specify his or her own hash function (strings for now) when initializing a hash table
 

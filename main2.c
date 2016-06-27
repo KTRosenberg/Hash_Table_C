@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
         ++word_count;
     }
 
-    if(ferror(text))
+    if(ferror(text) || !feof(text))
     {
         perror("ERROR");
         del_hash_table(&hash_table);

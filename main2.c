@@ -15,7 +15,7 @@ displays the table
     main
         note: pass a single command line argument of 'x' to avoid displaying the hash table
 */
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     //open a text file (for reading), one word per line for now
     FILE *text = fopen("words.txt", "r");

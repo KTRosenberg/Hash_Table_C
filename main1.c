@@ -52,6 +52,7 @@ int main()
     record_t* to_remove = remove_record("world", hash_table);
     if(to_remove)
     {
+        free(to_remove->key);
         free(to_remove);
         to_remove = NULL;
     }

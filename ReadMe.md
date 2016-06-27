@@ -1,5 +1,5 @@
 NOTE:
-Current version unstable, memory issues to-be-resolved soon
+Current version of test2 appears to be broken on my Linux OS--I will investigate soon
 
 hash-table implementation with separate chaining and automatic table resizing
 -allows the user to specify his or her own hash function (strings for now) when initializing a hash table

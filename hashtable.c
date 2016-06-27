@@ -261,6 +261,8 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table)
         if the key exists,
             returns the non-negative value mapped to the given key
         upon error returns -1
+        if the key does not exist,
+            returns -2
 */
 int64_t get_value(char* key, hash_table_t* hash_table)
 {
@@ -280,8 +282,8 @@ int64_t get_value(char* key, hash_table_t* hash_table)
         link = link->next_link;
     }
 
-    //if the record does not exist, return -1
-    if(!link)return -1;
+    //if the record does not exist, return -2
+    if(!link)return -2;
 
     //if the record exist, return its non-negative value
     return link->value;

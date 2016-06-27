@@ -45,19 +45,26 @@ int main(int argc, char *argv[])
         }
         //add the word and its word number to the hash table as a key-value pair
         //(the put_record function allocates memory for a copy of the char*)
-        put_record(buffer, word_count, hash_table);
+        if(!put_record(buffer, word_count, hash_table))
+        {
+            printf("%s\n", "hash table put error");
+            del_hash_table(&hash_table);
+            exit(-1);
+        }
         ++word_count;
     }
-    //close the text file
-    fclose(text);
 
     if(ferror(text))
     {
-        printf("%s\n", "ERROR");
+        perror("ERROR");
         del_hash_table(&hash_table);
+        fclose(text);
         exit(-2);
     }
-    
+
+    //close the text file
+    fclose(text);
+
     //passing a single command line argument of 'x'
     //avoids displaying the table
     if(argc != 2 || argv[1][0] != 'x')

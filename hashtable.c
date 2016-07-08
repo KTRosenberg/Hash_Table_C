@@ -374,14 +374,16 @@ int print_table(hash_table_t* hash_table)
 
 /*
     clear_table
-        frees the memory allocated for the lists array in the given hash table
+        frees the memory allocated for the lists array in the hash table
     param:  
         hash_table_t* hash_table (the hash table whose lists array must be freed)
     return:
         void
 */
-void clear_table(hash_table_t* hash_table)
+int clear_table(hash_table_t* hash_table)
 {
+    if(!hash_table || !(hash_table->lists))return -1;
+    
     //for each list in the hashtable's lists array,
     //free the list
     uint64_t size = hash_table->table_size;
@@ -393,21 +395,27 @@ void clear_table(hash_table_t* hash_table)
     //free the memory allocated for the now-cleared table
     free(hash_table->lists);
     hash_table->lists = NULL;
+
+    return 0;
 }
 
 /*
     del_hash_table
-        frees the memory allocated for the given hash table
+        frees the memory allocated for the hash table
     param:  
         hash_table_t** hash_table (a pointer to the hash table to free)
     return:
         void
 */
-void del_hash_table(hash_table_t** hash_table)
+int del_hash_table(hash_table_t** hash_table)
 {
+    if(!hash_table || !(*hash_table))return -1;
+
     //free the memory allocated for the lists array in the given hash table
     clear_table(*hash_table);
     //free the hash table struct
     free(*hash_table);
     *hash_table = NULL;
+
+    return 0;
 }

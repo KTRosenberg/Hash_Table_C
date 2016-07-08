@@ -20,10 +20,18 @@ hashtable:
 #define DEFAULTHASH &hash_default
 #define DEFAULTHASH2 &hash_default_2
 
+/*
 #define NEEDTORESIZE \
 (((hash_table->table_size << 1) + 1 > (hash_table->table_size)) && \
 (double)(hash_table->num_records + 1)/(double)((hash_table->table_size)) > \
 hash_table->max_load)
+*/
+
+
+#define NEEDTORESIZE \
+(((hash_table->table_size << 1) + 1 > (hash_table->table_size)) && \
+(hash_table->num_records + 1) > \
+(hash_table->table_size)*(hash_table->max_load))
 
 
 #ifndef HASHCHAIN_H
@@ -48,7 +56,7 @@ record_t* put_record(char* key, uint64_t value, hash_table_t* hash_table);
 int64_t get_value(char* key, hash_table_t* hash_table);
 record_t* remove_record(char* key, hash_table_t* hash_table);
 int print_table(hash_table_t* hash_table);
-void clear_table(hash_table_t* hash_table);
-void del_hash_table(hash_table_t** hash_table);
+int clear_table(hash_table_t* hash_table);
+int del_hash_table(hash_table_t** hash_table);
 
 #endif

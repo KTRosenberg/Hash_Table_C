@@ -75,7 +75,8 @@ int main(int argc, char* argv[])
     
         //delete the hash table
         del_hash_table(&hash_table);
-
+        
+        //reset pointer to beginning of text
         rewind(text);
     }
 

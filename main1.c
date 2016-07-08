@@ -11,6 +11,8 @@ the table after each hash table operation
 
 int main()
 {
+    free(NULL);
+    
     //default table size, low load factor of 0.2 for testing, default Jenkins hash function
     hash_table_t* hash_table = init_hash_table(DEFAULTSIZE, 0.2, DEFAULTHASH);
     if(!hash_table)exit(-1);

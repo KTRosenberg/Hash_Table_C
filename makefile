@@ -11,7 +11,7 @@ test2 : $(OBJS2)
 	$(CC) $(CFLAGS) $(OBJS2) -o test2
 
 test3 : $(OBJS3)
-	$(CC) $(CFLAGS) $(OBJS3) -o test3_div
+	$(CC) $(CFLAGS) $(OBJS3) -o test3
 
 hashtable.o : hashtable.c hashtable.h
 	$(CC) $(CFLAGS) -c hashtable.c
